@@ -1,0 +1,8 @@
+Full Stack Developer (Node.js/ React.js) Machine Test      
+
+Node.js  
+Test 1: Express.js Middleware and Routing  Build a RESTful API using Express.js that supports CRUD operations on a resource (e.g., users). Implement middleware for authentication, authorization, and logging. Handle different HTTP methods (GET, POST, PUT, DELETE) and status codes.  
+Test 2: Database Integration (e.g., MongoDB)  Create a Node.js application that connects to a MongoDB database and performs the following operations:  Creates a collection. Inserts multiple documents into the collection. Queries the collection for specific documents. Updates existing documents. Deletes documents from the collection.  
+
+React.js 
+Test 1: Form Handling and Validation Create a form component that collects user input, validates the data, and submits it to an API.  Test 2: Context API or Redux Implement a state management solution (Context API or Redux) to share data across multiple components in a React application. 
