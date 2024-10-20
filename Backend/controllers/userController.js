@@ -14,19 +14,18 @@ const registerUser = async (req, res) => {
 
     const user = new User({ name, email, password: hashedPassword, mobile });
 
-    // Generate token and set it to user object
-    const token = createToken(user);
-    user.token = token;
-
+    
     // Save user to the database
     await user.save();
-
+    
+    // Generate token and set it to user object
+    // const token = createToken(user);
+    // user.token = token;
     // Set token in cookie and return response
-    res.cookie('token', token, { httpOnly: true });
+    // res.cookie('token', token, { httpOnly: true });
     res.status(201).json({
       message: 'User registered successfully.',
       user: { name: user.name, email: user.email, mobile: user.mobile },
-      token,
     });
   } catch (err) {
     res.status(500).json({ message: 'Error registering user' });
@@ -47,9 +46,9 @@ const loginUser = async (req, res) => {
     // Check if password matches
     const isMatch = await bcrypt.compare(password, userDetails.password);
     if (isMatch) {
-      // const token = createToken(user)
+      const token = createToken(userDetails)
       // res.cookie('token', token)
-      return res.status(200).json({ message: "User login successfully..", userDetails });
+      return res.status(200).json({ message: "User login successfully..", userDetails, token });
     } else {
       return res.status(400).json("Invalid password.."); // Return here as well
     }
@@ -73,7 +72,7 @@ const updateUser = async (req, res) => {
   const { name, email, password, mobile } = req.body;
 
   try {
-    if (!req.user) return res.status(403).json({ message: 'Unauthorized' });
+    if (req.user !== req.params.id) return res.status(403).json({ message: 'login user can update own data...' });
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -98,8 +97,8 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     // Ensure the logged-in user is deleting their own account
-    if (!req.user) {
-      return res.status(403).json({ message: 'You are not authorized to delete this user' });
+    if (req.user !== req.params.id) {
+      return res.status(403).json({ message: 'login user can delete own data...' });
     }
 
     const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -117,9 +116,9 @@ const deleteUser = async (req, res) => {
 const logout = (req, res, next) => {
   try {
     // Ensure the logged-in user is logout their own account
-    if (!req.user) {
-      return res.status(403).json({ message: 'user not logged IN. Login first...!' });
-    }
+    // if (!req.user) {
+    //   return res.status(403).json({ message: 'user not logged IN. Login first...!' });
+    // }
 
     // Clear the token cookie on the client side
     res.clearCookie('token');

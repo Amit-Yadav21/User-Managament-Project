@@ -13,13 +13,16 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/users/register', {
+      const response = await axios.post('http://localhost:8080/api/user/register', {
         name,
         email,
         password,
         mobile,
       });
+      // Save the token to local storage
+      // localStorage.setItem('token', response.data.token);
       alert(`Registration successful! Welcome, ${response.data.user.name}.`);
+      
       // Reset the form after successful registration
       setName('');
       setEmail('');

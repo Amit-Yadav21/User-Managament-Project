@@ -1,38 +1,48 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useUserContext } from '../../Context/UserContext';
-import './Edit.css'; // Import the CSS file
+import { FaEye, FaEyeSlash, FaTimes } from 'react-icons/fa'; 
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+import './Edit.css'; 
 
 const EditUser = () => {
-    const { editingUser, closeEditModal } = useUserContext(); // Access editingUser and closeEditModal from context
+    const { editingUser, closeEditModal } = useUserContext(); 
     const [name, setName] = useState(editingUser.name);
     const [email, setEmail] = useState(editingUser.email);
-    const [password, setPassword] = useState(''); // Password state
-    const [mobile, setMobile] = useState(editingUser.mobile); // Add mobile state
+    const [password, setPassword] = useState(''); 
+    const [mobile, setMobile] = useState(editingUser.mobile); 
+    const [showPassword, setShowPassword] = useState(false); 
 
     const handleUpdate = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
 
         try {
-            await axios.put(`http://localhost:8080/api/users/update/${editingUser._id}`, {
+            await axios.put(`http://localhost:8080/api/user/update/${editingUser._id}`, {
                 name,
                 email,
                 password,
-                mobile, // Include mobile in the request
+                mobile, 
             }, {
-                token:token
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
             });
-            alert(`Updating user data: ${response.data.message}`);
+            toast.success('User updated successfully!'); 
             closeEditModal(); 
         } catch (error) {
-            alert(`Error updating user: ${error.response?.data?.message || error.message}`);
+            toast.error(`${error.response?.data?.message || error.message}`); 
         }
     };
 
     return (
         <div className="modal">
             <div className="modal-content">
+                <div className="modal-header">
+                    <h2>Edit User</h2>
+                    <FaTimes className="close-icon" onClick={closeEditModal} />
+                </div>
                 <form onSubmit={handleUpdate}>
                     <input
                         type="text"
@@ -48,24 +58,29 @@ const EditUser = () => {
                         placeholder="Email"
                         required
                     />
+                    <div className="password-container"> 
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Password"
+                            required
+                        />
+                        <span className="password-icon" onClick={() => setShowPassword(!showPassword)}> 
+                            {showPassword ? <FaEyeSlash /> : <FaEye />} 
+                        </span>
+                    </div>
                     <input
-                        type="password" // Input type for password
-                        value={password} // Use password state variable
-                        onChange={(e) => setPassword(e.target.value)} // Update password on change
-                        placeholder="Password" // Change placeholder to Password
-                        required
-                    />
-                    <input
-                        type="tel" // Input type for mobile number
-                        value={mobile} // Use mobile state variable
-                        onChange={(e) => setMobile(e.target.value)} // Update mobile on change
-                        placeholder="Mobile" // Change placeholder to Mobile
+                        type="tel"
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
+                        placeholder="Mobile"
                         required
                     />
                     <button type="submit">Update</button>
-                    <button type="button" onClick={closeEditModal}>Cancel</button>
                 </form>
             </div>
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
         </div>
     );
 };

@@ -1,13 +1,11 @@
-// src/components/UserList.js
-
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { useUserContext } from '../../Context/UserContext'; // Import useUserContext
-import EditUser from '../EditUser/EditUser'; // Importing the EditUser component
-import './UserList.css'; // Import the CSS file
+import { useUserContext } from '../../Context/UserContext';
+import EditUser from '../EditUser/EditUser'; 
+import './UserList.css'; 
 
 const UserList = () => {
-  const { users, editingUser, handleDelete, handleEdit, closeEditModal } = useUserContext(); // Destructure context values
+  const { users, editingUser, handleDelete, handleEdit, closeEditModal } = useUserContext(); 
 
   return (
     <div className="user-list-container">
@@ -16,14 +14,14 @@ const UserList = () => {
         {users.map((user) => (
           <div className="user-card" key={user._id}>
             <div className="user-info">
-              <h3 className="user-name">{user.name}</h3>
+              <h3 className="user-name">Name: {user.name}</h3>
               <p className="user-email">Email: {user.email}</p>
               <p className="user-email">Mobile: {user.mobile}</p>
             </div>
             <div className="user-actions">
               <FaEdit 
                 className="edit-icon" 
-                onClick={() => handleEdit(user)} // Edit user on icon click
+                onClick={() => handleEdit(user)} 
                 title="Edit User"
               />
               <FaTrash 

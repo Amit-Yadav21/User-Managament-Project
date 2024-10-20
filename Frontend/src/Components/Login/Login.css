@@ -12,7 +12,8 @@
     background-size: 100% 100%;
 }
 
-.login-card { /* New class for the card */
+.login-card {
+    /* New class for the card */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,8 +24,10 @@
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    text-align: center; /* Center the text within the card */
-    margin-top: -50px; /* Adjust this value to shift the card higher */
+    text-align: center;
+    /* Center the text within the card */
+    margin-top: -50px;
+    /* Adjust this value to shift the card higher */
 }
 
 .login-title {
@@ -67,4 +70,17 @@
 
 .login-button:hover {
     background-color: #0056b3;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-icon {
+    position: absolute;
+    right: 15px;
+    top: 44%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 2rem;
 }

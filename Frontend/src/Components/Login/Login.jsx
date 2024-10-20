@@ -3,15 +3,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css'; // Import the CSS file for styling
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons for show/hide
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/users/login', {
+      const response = await axios.post('http://localhost:8080/api/user/login', {
         email,
         password,
       });
@@ -37,14 +39,19 @@ const Login = () => {
             className="login-input"
             required
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="login-input"
-            required
-          />
+          <div className="password-container"> {/* Container for password input and icon */}
+            <input
+              type={showPassword ? 'text' : 'password'} // Toggle input type based on state
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="login-input"
+              required
+            />
+            <span className="password-icon" onClick={() => setShowPassword(!showPassword)}> {/* Toggle visibility on click */}
+              {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Show/hide icon */}
+            </span>
+          </div>
           <button type="submit" className="login-button">Login</button>
         </form>
       </div>

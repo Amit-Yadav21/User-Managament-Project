@@ -1,6 +1,7 @@
-// src/context/UserContext.js
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserContext = createContext();
 
@@ -10,25 +11,26 @@ export const UserProvider = ({ children }) => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/users/find/all', {
-            });
+            const response = await axios.get('http://localhost:8080/api/user/find/all');
             setUsers(response.data);
+            toast.success('Users fetched successfully!');
         } catch (error) {
-            alert(`Error fetching users: ${error.response?.data?.message || error.message}`);
+            toast.error(`${error.response?.data?.message || error.message}`);
         }
     };
 
     const handleDelete = async (userId) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:8080/api/users/find/all/${userId}`, {
+            await axios.delete(`http://localhost:8080/api/user/delete/${userId}`, {
                 headers: {
                     Authorization: 'Bearer ' + token,
                 },
             });
             setUsers(users.filter(user => user._id !== userId));
+            toast.success('User deleted successfully!');
         } catch (error) {
-            alert(`Error deleting user: ${error.response?.data?.message || error.message}`);
+            toast.error(`${error.response?.data?.message || error.message}`);
         }
     };
 
