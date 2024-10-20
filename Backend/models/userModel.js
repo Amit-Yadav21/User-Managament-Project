@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, },
     password: { type: String, required: true },
     mobile: { type: Number, require: true},
+    token: { type: String },
 });
 
 const User = mongoose.model('user-managament-project', userSchema);

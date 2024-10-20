@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
-import { createToken } from '../middleware/authMiddleware.js';
+import { createToken } from '../auth/authMiddleware.js';
 
 // Register User
 const registerUser = async (req, res) => {
@@ -12,9 +11,23 @@ const registerUser = async (req, res) => {
     if (userExists) return res.status(400).json({ message: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = new User({ name, email, password: hashedPassword, mobile });
+
+    // Generate token and set it to user object
+    const token = createToken(user);
+    user.token = token;
+
+    // Save user to the database
     await user.save();
-    res.status(201).json({ user });
+
+    // Set token in cookie and return response
+    res.cookie('token', token, { httpOnly: true });
+    res.status(201).json({
+      message: 'User registered successfully.',
+      user: { name: user.name, email: user.email, mobile: user.mobile },
+      token,
+    });
   } catch (err) {
     res.status(500).json({ message: 'Error registering user' });
   }
@@ -26,22 +39,22 @@ const loginUser = async (req, res) => {
 
   try {
     // Check if user exists
-    let user = await User.findOne({ email });
-    if (!user) {
-      res.status(400).json("Invalid Email. Please check..")
+    let userDetails = await User.findOne({ email });
+    if (!userDetails) {
+      return res.status(400).json("Invalid Email. Please check.."); // Return to stop further execution
     }
 
     // Check if password matches
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, userDetails.password);
     if (isMatch) {
-      const token = createToken(user)
-      res.cookie('token', token)
-      res.status(200).json({ message: "user login successfully..", user, token })
+      // const token = createToken(user)
+      // res.cookie('token', token)
+      return res.status(200).json({ message: "User login successfully..", userDetails });
     } else {
-      res.status(400).json("invalid password..")
+      return res.status(400).json("Invalid password.."); // Return here as well
     }
   } catch (err) {
-    res.status(500).json({ message: 'Error logging in' });
+    return res.status(500).json({ message: 'Error logging in' }); // Ensure this return too
   }
 };
 
@@ -58,29 +71,25 @@ const getAllUsers = async (req, res) => {
 // Update user
 const updateUser = async (req, res) => {
   const { name, email, password, mobile } = req.body;
+
   try {
-    // Find the existing user by ID
-    const existingUser = await User.findById(req.params.id);
-    if (!existingUser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    if (!req.user) return res.status(403).json({ message: 'Unauthorized' });
 
-    // Update user fields
-    if (name) existingUser.name = name;
-    if (email) existingUser.email = email;
-    if (mobile) existingUser.mobile = mobile;
-    if (password) {
-      // Hash the password if provided
-      existingUser.password = await bcrypt.hash(password, 10);
-    }
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          name, email, mobile,
+          password: password ? await bcrypt.hash(password, 10) : undefined
+        }
+      },
+      { new: true, omitUndefined: true }
+    );
 
-    // Save the updated user
-    const updatedUser = await existingUser.save();
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
 
-    // Send back the updated user data
-    res.status(200).json(updatedUser);
+    res.status(200).json({ message: 'User updated', user: updatedUser });
   } catch (err) {
-    console.error(err); // Log error for debugging
     res.status(500).json({ message: 'Error updating user' });
   }
 };
@@ -88,11 +97,40 @@ const updateUser = async (req, res) => {
 // Delete user
 const deleteUser = async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: 'User deleted' });
+    // Ensure the logged-in user is deleting their own account
+    if (!req.user) {
+      return res.status(403).json({ message: 'You are not authorized to delete this user' });
+    }
+
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully', deletedUser: { Name: deletedUser.name, Email: deletedUser.email } });
   } catch (err) {
     res.status(500).json({ message: 'Error deleting user' });
   }
 };
 
-export { registerUser, loginUser, getAllUsers, updateUser, deleteUser };
+// Logout route
+const logout = (req, res, next) => {
+  try {
+    // Ensure the logged-in user is logout their own account
+    if (!req.user) {
+      return res.status(403).json({ message: 'user not logged IN. Login first...!' });
+    }
+
+    // Clear the token cookie on the client side
+    res.clearCookie('token');
+
+    // Send a response indicating successful logout
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    const err = new Error("Internal Server Error")
+    err.status = 500;
+    return next(err)
+  }
+};
+
+export { registerUser, loginUser, getAllUsers, updateUser, deleteUser, logout };
