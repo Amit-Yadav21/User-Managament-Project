@@ -1,5 +1,3 @@
-// src/App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
@@ -9,6 +7,7 @@ import UserList from './Components/UserList/UserList';
 import { UserProvider } from './Context/UserContext'; 
 import Home from './Components/Home/Home';
 import { ToastContainer } from 'react-toastify';
+import "./App.css"
 
 const App = () => {
   return (

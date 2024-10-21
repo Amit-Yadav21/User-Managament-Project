@@ -3,12 +3,14 @@ import axios from 'axios';
 import './Login.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
+
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,7 +22,10 @@ const Login = () => {
 
       // Save the token to local storage
       localStorage.setItem('token', response.data.token);
-      toast.success('Users fetched successfully!');
+      toast.success('Login successful!');
+
+      // Redirect to user list after successful login
+      navigate('/users');
     } catch (error) {
       toast.error(`${error.response?.status} ${error.response?.statusText}, ${error.response?.data?.message || (error.status && error.message)}`);
     }

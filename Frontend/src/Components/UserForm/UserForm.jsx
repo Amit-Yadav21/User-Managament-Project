@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './Register.css'; // Import the CSS file for styling
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { toast, ToastContainer } from 'react-toastify'; // Import react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [mobile, setMobile] = useState(''); // State for mobile number
-  const [showPassword, setShowPassword] = useState(false); // State for showing/hiding password
+  const [mobile, setMobile] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -21,10 +23,6 @@ const Register = () => {
         password,
         mobile,
       });
-
-      // Save the token to local storage
-      // localStorage.setItem('token', response.data.token);
-
       toast.success(`Registration successful! Welcome, ${response.data.user.name}.`);
 
       // Reset the form after successful registration
@@ -32,14 +30,16 @@ const Register = () => {
       setEmail('');
       setPassword('');
       setMobile('');
+
+      // Redirect to login page after successful registration
+      navigate('/login');
     } catch (error) {
-      toast.error(`${error.response?.status} ${error.response?.statusText}, ${error.response?.data?.message || 'An error occurred'}`);
+      toast.error(`Registration failed: ${error.response?.data?.message || 'An error occurred'}`);
     }
   };
 
   return (
     <div className="register-container">
-      <ToastContainer />
       <div className="register-card">
         <h2 className="register-title">Register</h2>
         <form onSubmit={handleRegister} className="register-form">
@@ -59,7 +59,7 @@ const Register = () => {
             className="register-input"
             required
           />
-          <div className="password-container"> {/* Wrapper for password input */}
+          <div className="password-container">
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -72,8 +72,8 @@ const Register = () => {
               onClick={() => setShowPassword(!showPassword)}
               className="toggle-password"
               role="button"
-              tabIndex={0} // Make it keyboard accessible
-              onKeyDown={(e) => e.key === 'Enter' && setShowPassword(!showPassword)} // Handle Enter key
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setShowPassword(!showPassword)}
             >
               {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
             </div>
