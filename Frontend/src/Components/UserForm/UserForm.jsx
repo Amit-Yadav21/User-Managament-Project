@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Register.css'; // Import the CSS file for styling
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { toast, ToastContainer } from 'react-toastify'; // Import react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -19,23 +21,26 @@ const Register = () => {
         password,
         mobile,
       });
+
       // Save the token to local storage
       // localStorage.setItem('token', response.data.token);
-      alert(`Registration successful! Welcome, ${response.data.user.name}.`);
-      
+
+      toast.success(`Registration successful! Welcome, ${response.data.user.name}.`);
+
       // Reset the form after successful registration
       setName('');
       setEmail('');
       setPassword('');
       setMobile('');
     } catch (error) {
-      alert(`Registration failed: ${error.response?.data?.message || 'An error occurred'}`);
+      toast.error(`${error.response?.status} ${error.response?.statusText}, ${error.response?.data?.message || 'An error occurred'}`);
     }
   };
 
   return (
     <div className="register-container">
-      <div className="register-card"> {/* Added a wrapper for the card effect */}
+      <ToastContainer />
+      <div className="register-card">
         <h2 className="register-title">Register</h2>
         <form onSubmit={handleRegister} className="register-form">
           <input

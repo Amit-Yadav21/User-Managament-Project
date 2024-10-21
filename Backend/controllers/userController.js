@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
       // res.cookie('token', token)
       return res.status(200).json({ message: "User login successfully..", userDetails, token });
     } else {
-      return res.status(400).json("Invalid password.."); // Return here as well
+      return res.status(400).json({message:"Invalid password.."}); // Return here as well
     }
   } catch (err) {
     return res.status(500).json({ message: 'Error logging in' }); // Ensure this return too
@@ -97,7 +97,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     // Ensure the logged-in user is deleting their own account
-    if (!req.user.email._id == req.params.id) {
+    if (req.user.email._id !== req.params.id) {
       return res.status(403).json({ message: 'login user can delete own data...' });
     }
 

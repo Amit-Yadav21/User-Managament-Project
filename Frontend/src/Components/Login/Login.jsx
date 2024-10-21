@@ -1,9 +1,9 @@
-// src/components/Login.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Login.css'; // Import the CSS file for styling
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons for show/hide
+import './Login.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,12 +17,12 @@ const Login = () => {
         email,
         password,
       });
-      
+
       // Save the token to local storage
       localStorage.setItem('token', response.data.token);
-      alert(`Login successful: ${response.data.token}`);
+      toast.success('Users fetched successfully!');
     } catch (error) {
-      alert(`Login failed: ${error.response.data.message}`);
+      toast.error(`${error.response?.status} ${error.response?.statusText}, ${error.response?.data?.message || (error.status && error.message)}`);
     }
   };
 
