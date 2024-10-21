@@ -6,3 +6,57 @@ Test 2: Database Integration (e.g., MongoDB)  Create a Node.js application that 
 
 React.js 
 Test 1: Form Handling and Validation Create a form component that collects user input, validates the data, and submits it to an API.  Test 2: Context API or Redux Implement a state management solution (Context API or Redux) to share data across multiple components in a React application. 
+
+What is a User Management System?
+A User Management System is a software solution designed to manage user accounts and their access to resources within an application or system. The primary functions of such a system include:
+
+User Registration and Login: Allow users to create accounts and authenticate themselves to access the system.
+Profile Management: Enable users to view and update their personal information, such as name, email, password, and other relevant data.
+Role-Based Access Control (RBAC): Assign different roles to users (e.g., admin, editor, viewer) and manage permissions based on these roles, ensuring that users have appropriate access to resources.
+Password Management: Include features for password recovery, reset, and enforcement of password policies (e.g., complexity requirements).
+Account Security: Implement measures like two-factor authentication (2FA) and activity logging to enhance security.
+User Activity Tracking: Monitor user actions within the system for audit and analysis purposes.
+User Deactivation and Deletion: Allow for the deactivation or permanent deletion of user accounts when necessary.
+
+Machine Test Overview for Full Stack Developer (Node.js/React.js)
+Your machine test is well-structured to assess both backend and frontend skills. Here’s a brief overview of each test section:
+
+Node.js
+Test 1: Express.js Middleware and Routing
+
+Objective: Build a RESTful API to manage a resource (e.g., users).
+Key Features:
+Implement middleware functions for:
+Authentication: Verify user identity (e.g., using JWT).
+Authorization: Check user permissions for accessing certain resources.
+Logging: Log incoming requests and responses for monitoring.
+Handle different HTTP methods:
+GET: Retrieve resource(s).
+POST: Create a new resource.
+PUT: Update an existing resource.
+DELETE: Remove a resource.
+Return appropriate HTTP status codes (e.g., 200 for success, 404 for not found, 401 for unauthorized).
+Test 2: Database Integration (e.g., MongoDB)
+
+Objective: Connect a Node.js application to a MongoDB database.
+Key Operations:
+Create a Collection: Set up a new collection in MongoDB.
+Insert Documents: Add multiple entries to the collection.
+Query Documents: Fetch specific documents based on criteria.
+Update Documents: Modify existing documents.
+Delete Documents: Remove documents from the collection.
+React.js
+Test 1: Form Handling and Validation
+
+Objective: Create a form that captures user input.
+Key Features:
+Validate input data (e.g., using client-side validation libraries or custom validation).
+Submit the data to the backend API you created in the Node.js section.
+Provide feedback to the user (e.g., success or error messages).
+Test 2: Context API or Redux
+
+Objective: Implement a state management solution.
+Key Features:
+Use the Context API or Redux to manage global state.
+Share data across multiple components effectively.
+Ensure that changes in the state are reflected in the UI without prop drilling.
