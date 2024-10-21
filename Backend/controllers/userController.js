@@ -72,7 +72,7 @@ const updateUser = async (req, res) => {
   const { name, email, password, mobile } = req.body;
 
   try {
-    if (req.user !== req.params.id) return res.status(403).json({ message: 'login user can update own data...' });
+    if (req.user.email._id !== req.params.id) return res.status(403).json({ message: 'login user can update own data...' });
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -97,7 +97,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     // Ensure the logged-in user is deleting their own account
-    if (req.user !== req.params.id) {
+    if (!req.user.email._id == req.params.id) {
       return res.status(403).json({ message: 'login user can delete own data...' });
     }
 

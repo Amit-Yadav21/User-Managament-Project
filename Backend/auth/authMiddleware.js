@@ -37,7 +37,7 @@ const verifyToken = (req, res, next) => {
         }
 
         const data = jwt.verify(token, JWT_SECRET);
-        req.jwtData = data;
+        req.user = data;
         next();
     } catch (err) {
         console.error('JWT Verification Error:', err);
