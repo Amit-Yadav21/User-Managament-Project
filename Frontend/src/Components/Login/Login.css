@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    height: 83vh;
     background-color: #f4f7fc;
     padding: 20px;
 }
@@ -87,43 +87,43 @@
     }
 
     .login-title {
-        font-size: 1.8rem; /* Slightly smaller font size */
+        font-size: 1.8rem; 
     }
 
     .login-input {
-        font-size: 0.9rem; /* Adjust font size for inputs */
+        font-size: 0.9rem; 
     }
 
     .password-icon {
-        font-size: 2rem; /* Adjust icon size */
+        font-size: 2rem; 
     }
 
     .login-button {
         padding: 10px;
-        font-size: 0.9rem; /* Adjust button size */
+        font-size: 0.9rem; 
     }
 }
 
 @media (max-width: 480px) {
     .login-card {
         padding: 10px;
-        width: 95%; /* Further reduce width for very small screens */
+        width: 95%; 
     }
 
     .login-title {
-        font-size: 1.5rem; /* Further reduce title font size */
+        font-size: 1.5rem; 
     }
 
     .login-input {
-        font-size: 0.85rem; /* Adjust input font size */
+        font-size: 0.85rem; 
     }
 
     .login-button {
         padding: 8px;
-        font-size: 0.85rem; /* Further adjust button size */
+        font-size: 0.85rem;
     }
 
     .password-icon {
-        font-size: 2rem; /* Adjust icon size for smaller screens */
+        font-size: 2rem; 
     }
 }

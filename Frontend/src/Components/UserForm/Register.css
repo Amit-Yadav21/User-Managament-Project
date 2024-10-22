@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    height: 83vh;
     background-color: #f4f7fc;
     padding: 20px;
 }
@@ -37,7 +37,7 @@
 }
 
 .register-input {
-    width: 90%; /* Make input fields full width */
+    width: 90%;
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
@@ -75,54 +75,54 @@
     top: 40%;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 1.5rem; /* Reduced font size for icon */
+    font-size: 1.5rem; 
 }
 
 /* Responsive Styles for smaller screens */
 @media (max-width: 768px) {
     .register-card {
         padding: 15px;
-        width: 90%; /* Reduce width for smaller screens */
+        width: 90%; 
     }
 
     .register-title {
-        font-size: 2rem; /* Slightly smaller font size */
+        font-size: 2rem; 
     }
 
     .register-input {
-        font-size: 0.9rem; /* Adjust input font size */
+        font-size: 0.9rem; 
     }
 
     .register-button {
         padding: 10px;
-        font-size: 0.9rem; /* Adjust button size */
+        font-size: 0.9rem; 
     }
 
     .toggle-password {
-        font-size: 2rem; /* Adjust icon size */
+        font-size: 2rem; 
     }
 }
 
 @media (max-width: 480px) {
     .register-card {
         padding: 10px;
-        width: 95%; /* Further reduce width for very small screens */
+        width: 95%; 
     }
 
     .register-title {
-        font-size: 1.5rem; /* Further reduce title font size */
+        font-size: 1.5rem; 
     }
 
     .register-input {
-        font-size: 0.85rem; /* Adjust input font size */
+        font-size: 0.85rem; 
     }
 
     .register-button {
         padding: 8px;
-        font-size: 0.85rem; /* Further adjust button size */
+        font-size: 0.85rem; 
     }
 
     .toggle-password {
-        font-size: 2rem; /* Adjust icon size for smaller screens */
+        font-size: 2rem; 
     }
 }

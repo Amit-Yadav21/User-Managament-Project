@@ -16,7 +16,7 @@ const Navbar = () => {
         <img src={logo} alt="" />
       </div>
       <div className={`nav-links ${isOpen ? 'open' : ''}`}>
-        <Link to="/">Home</Link>
+        <Link to="/" onClick={toggleMenu}>Home</Link>
         <Link to="/register" onClick={toggleMenu}>Register</Link>
         <Link to="/login" onClick={toggleMenu}>Login</Link>
         <Link to="/users" onClick={toggleMenu}>Users</Link>
