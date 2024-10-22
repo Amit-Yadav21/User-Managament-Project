@@ -13,39 +13,5 @@ Your machine test is well-structured to assess both backend and frontend skills.
 Node.js
 Test 1: Express.js Middleware and Routing
 
-Objective: Build a RESTful API to manage a resource (e.g., users).
-Key Features:
-Implement middleware functions for:
-Authentication: Verify user identity (e.g., using JWT).
-Authorization: Check user permissions for accessing certain resources.
-Logging: Log incoming requests and responses for monitoring.
-Handle different HTTP methods:
-GET: Retrieve resource(s).
-POST: Create a new resource.
-PUT: Update an existing resource.
-DELETE: Remove a resource.
-Return appropriate HTTP status codes (e.g., 200 for success, 404 for not found, 401 for unauthorized).
-Test 2: Database Integration (e.g., MongoDB)
-
-Objective: Connect a Node.js application to a MongoDB database.
-Key Operations:
-Create a Collection: Set up a new collection in MongoDB.
-Insert Documents: Add multiple entries to the collection.
-Query Documents: Fetch specific documents based on criteria.
-Update Documents: Modify existing documents.
-Delete Documents: Remove documents from the collection.
-React.js
-Test 1: Form Handling and Validation
-
-Objective: Create a form that captures user input.
-Key Features:
-Validate input data (e.g., using client-side validation libraries or custom validation).
-Submit the data to the backend API you created in the Node.js section.
-Provide feedback to the user (e.g., success or error messages).
-Test 2: Context API or Redux
-
-Objective: Implement a state management solution.
-Key Features:
-Use the Context API or Redux to manage global state.
-Share data across multiple components effectively.
-Ensure that changes in the state are reflected in the UI without prop drilling.
+Backend Deployment link : https://user-managament-project.vercel.app/api/user/find/all
+Frontend link : https://ums-project.netlify.app
