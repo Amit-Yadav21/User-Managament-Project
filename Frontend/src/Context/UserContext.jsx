@@ -11,18 +11,17 @@ export const UserProvider = ({ children }) => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/user/find/all');
+            const response = await axios.get('https://user-managament-project.vercel.app/api/user/find/all');
             setUsers(response.data);
             toast.success('Users fetched successfully!');
         } catch (error) {
             toast.error(`${error.response?.data?.message || error.message}`);
         }
     };
-
     const handleDelete = async (userId) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:8080/api/user/delete/${userId}`, {
+            await axios.delete(`https://user-managament-project.vercel.app/api/user/delete/${userId}`, {
                 headers: {
                     Authorization: 'Bearer ' + token,
                 },
