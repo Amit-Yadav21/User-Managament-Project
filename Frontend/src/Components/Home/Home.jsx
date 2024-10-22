@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="name-container">
       <div className='border'>
-        <h1 className="cdd-text">User Management System ?</h1>
+        <h1 className="heading">User Management System ?</h1>
         <p>
           A User Management System is a software solution designed to manage user accounts and their access to resources within an application or system.
         </p>

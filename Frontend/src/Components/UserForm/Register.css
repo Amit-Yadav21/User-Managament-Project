@@ -1,3 +1,4 @@
+/* Basic Styles */
 .register-container {
     display: flex;
     flex-direction: column;
@@ -5,13 +6,10 @@
     justify-content: center;
     height: 90vh;
     background-color: #f4f7fc;
-    /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3VHQvL75qdTF8vtBZoqFlpKAqg6WNlXOhxA&s');
-    background-repeat: no-repeat;
-    background-size: 100% 100%; */
+    padding: 20px;
 }
 
 .register-card {
-    /* New class for the card */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,7 +21,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
-    /* Center the text within the card */
 }
 
 .register-title {
@@ -40,7 +37,7 @@
 }
 
 .register-input {
-    width: 90%;
+    width: 90%; /* Make input fields full width */
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
@@ -72,15 +69,60 @@
     position: relative;
 }
 
-.password-input {
-    padding-right: 40px;
-}
-
 .toggle-password {
     position: absolute;
     right: 10px;
     top: 40%;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1.5rem; /* Reduced font size for icon */
+}
+
+/* Responsive Styles for smaller screens */
+@media (max-width: 768px) {
+    .register-card {
+        padding: 15px;
+        width: 90%; /* Reduce width for smaller screens */
+    }
+
+    .register-title {
+        font-size: 2rem; /* Slightly smaller font size */
+    }
+
+    .register-input {
+        font-size: 0.9rem; /* Adjust input font size */
+    }
+
+    .register-button {
+        padding: 10px;
+        font-size: 0.9rem; /* Adjust button size */
+    }
+
+    .toggle-password {
+        font-size: 2rem; /* Adjust icon size */
+    }
+}
+
+@media (max-width: 480px) {
+    .register-card {
+        padding: 10px;
+        width: 95%; /* Further reduce width for very small screens */
+    }
+
+    .register-title {
+        font-size: 1.5rem; /* Further reduce title font size */
+    }
+
+    .register-input {
+        font-size: 0.85rem; /* Adjust input font size */
+    }
+
+    .register-button {
+        padding: 8px;
+        font-size: 0.85rem; /* Further adjust button size */
+    }
+
+    .toggle-password {
+        font-size: 2rem; /* Adjust icon size for smaller screens */
+    }
 }
