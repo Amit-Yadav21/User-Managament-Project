@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "vercel-build": "echo hello",
-    "dev": "node --watch server.js",
-    "build": "node server.js"
+    "dev": "node --watch index.js",
+    "build": "node index.js"
   },
   "keywords": [],
   "author": "",
